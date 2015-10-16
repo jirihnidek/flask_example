@@ -4,7 +4,7 @@ Main file of flask example application.
 
 import sqlite3
 
-from flask import Flask
+import flask
 
 # configuration
 DATABASE = '/tmp/flaskr.db'
@@ -13,7 +13,7 @@ SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 app.config.from_object(__name__)
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
@@ -23,11 +23,23 @@ def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+@app.route("/")
+def index():
+    """Display index page"""
+    return flask.render_template("/index.html")
+
+
+@app.route("/login/")
+def login():
+        return flask.render_template("/login.html")
+
+
+@app.errorhandler(404)
+def not_found(error):
+        """Display friendly error message"""
+        return flask.render_template("error_404.html")
 
 
 if __name__ == '__main__':
     connect_db()
-    app.run()
+    app.run(debug=True)
