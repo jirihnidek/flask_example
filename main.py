@@ -37,7 +37,8 @@ def login():
 @app.errorhandler(404)
 def not_found(error):
         """Display friendly error message"""
-        return flask.render_template("error_404.html")
+        print(error)
+        return flask.render_template("error_404.html", msg=error)
 
 
 if __name__ == '__main__':
