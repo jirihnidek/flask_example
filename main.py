@@ -43,4 +43,5 @@ def not_found(error):
 
 if __name__ == '__main__':
     connect_db()
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
+
