@@ -6,18 +6,10 @@ import sqlite3
 
 import flask
 
-# configuration
-DATABASE = '/tmp/flaskr.db'
-DEBUG = True
-SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
-
 app = flask.Flask(__name__)
-app.config.from_object(__name__)
 
-app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-
+# Load configuration
+app.config.from_pyfile('main.cfg')
 
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
